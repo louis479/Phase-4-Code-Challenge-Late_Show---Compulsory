@@ -101,7 +101,8 @@ POST /appearances → Create a new appearance of a guest on an episode (Requires
 
 Example Requests & Responses
 
-**1. Get All Episodes
+### 1. Get All Episodes
+
 Request:**
 
 GET /episodes
@@ -116,7 +117,8 @@ json
 ]
 ```
 
-**2. Get an Episode by ID
+## 2. Get an Episode by ID
+
 Request:**
 
 ```sh
@@ -126,8 +128,9 @@ Response:
 { "id": 1, "title": "Episode 1", "air_date": "2025-04-01" }
 ```
 
-**3. Create an Appearance
-Request:**
+### 3. Create an Appearance
+
+Request:
 
 ```sh
 POST /appearances
