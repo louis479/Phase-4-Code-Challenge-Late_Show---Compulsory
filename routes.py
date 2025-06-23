@@ -1,7 +1,19 @@
 from flask import jsonify, request
 from flask_restful import Resource
-from models import db
-from models import db, Episode, Guest, Appearance
+from models import db 
+from models.model import db, Episode, Guest, Appearance
+
+class HomePage(Resource):
+    def get(self):
+        return {
+            "message": "Welcome to the Late Show API",
+            "endpoints": {
+                "episodes": "/episodes",
+                "guests": "/guests",
+                "appearances": "/appearances"
+            }
+        }, 200
+    
 
 class EpisodeList(Resource):
     def get(self):
@@ -39,7 +51,9 @@ class AppearanceCreate(Resource):
             return jsonify({"errors": [str(e)]}), 500
 
 def register_routes(api):
+    api.add_resource(HomePage, "/")
     api.add_resource(EpisodeList, "/episodes")
     api.add_resource(EpisodeDetail, "/episodes/<int:id>")
     api.add_resource(GuestList, "/guests")
     api.add_resource(AppearanceCreate, "/appearances")
+

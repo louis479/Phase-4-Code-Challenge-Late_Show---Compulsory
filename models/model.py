@@ -1,7 +1,7 @@
 from sqlalchemy.orm import validates
 from flask_sqlalchemy import SQLAlchemy
 
-from models import db 
+from . import db 
 
 class Episode(db.Model):
     __tablename__ = 'episodes'
@@ -49,6 +49,12 @@ class Appearance(db.Model):
         if rating < 1 or rating > 5:
             raise ValueError("rating must be between 1 and 5")
         return rating
+    
+    @validates('role')
+    def validate_role(self, key, role):
+        if not role:
+            raise ValueError("role cannot be empty")
+        return role
     
     episode = db.relationship('Episode', back_populates='appearances')
     guest = db.relationship('Guest', back_populates='appearances')
