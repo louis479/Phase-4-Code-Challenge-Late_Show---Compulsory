@@ -1,14 +1,14 @@
 # Phase-4-Code-Challenge-Late_Show---Compulsory
 
-# Late Show Flask API
+## Late Show Flask API
 
-## Overview
+### Overview
 
 The **Late Show Flask API** is a RESTful API built using **Flask** and **Flask-SQLAlchemy** to manage TV show episodes, guests, and their appearances. It allows users to retrieve information about episodes, guests, and create relationships between guests and episodes with their respective appearance details.
 
 ---
 
-## Features
+### Features
 
 - Retrieve a list of episodes
 - Get details of a specific episode
@@ -17,7 +17,7 @@ The **Late Show Flask API** is a RESTful API built using **Flask** and **Flask-S
 
 ---
 
-## Technologies Used
+### Technologies Used
 
 - **Python** (Flask, Flask-SQLAlchemy, Flask-Migrate)
 - **SQLite** (for database management)
@@ -34,20 +34,20 @@ git clone Code-challenge
 cd Phase-4-Code-Challenge-Late_Show---Compulsory
 ```
 
-**2. Create and Activate a Virtual Environment Using Pipenv**
+### **2. Create and Activate a Virtual Environment Using Pipenv**
 
 ```sh
 pipenv install
 pipenv shell
 ```
 
-**3. Install Dependencies**
+### **3. Install Dependencies**
 
 ```sh
 pipenv install --dev
 ```
 
-**4. Set the Environment Variables**
+### **4. Set the Environment Variables**
 
 Before running the application, set the following environment variables:
 
@@ -56,7 +56,7 @@ export FLASK_APP=app.py
 export FLASK_RUN_PORT=5555
 ```
 
-**5. Set Up Database Migrations**
+### **5. Set Up Database Migrations**
 
 ```sh
 flask db init  
@@ -64,7 +64,7 @@ flask db migrate -m "Initial migration"
 flask db upgrade
 ```
 
-**6. Run the Flask App**
+### **6. Run the Flask App**
 
 ```sh
 flask run

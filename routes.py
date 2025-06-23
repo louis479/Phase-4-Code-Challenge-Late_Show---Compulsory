@@ -1,6 +1,7 @@
 from flask import jsonify, request
 from flask_restful import Resource
-from models.models import db, Episode, Guest, Appearance
+from models import db
+from models import db, Episode, Guest, Appearance
 
 class EpisodeList(Resource):
     def get(self):
@@ -24,10 +25,11 @@ class AppearanceCreate(Resource):
         data = request.get_json()
         try:
             rating = data["rating"]
+            role = data["role"]
             episode_id = data["episode_id"]
             guest_id = data["guest_id"]
 
-            appearance = Appearance(rating=rating, episode_id=episode_id, guest_id=guest_id)
+            appearance = Appearance(rating=rating, role=role, episode_id=episode_id, guest_id=guest_id)
             db.session.add(appearance)
             db.session.commit()
             return jsonify(appearance.to_dict()), 201

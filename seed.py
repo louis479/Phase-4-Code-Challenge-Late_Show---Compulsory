@@ -1,4 +1,4 @@
-from models.models import Episode, Guest, Appearance
+from models.model import Episode, Guest, Appearance
 from app import db, app
 
 with app.app_context():

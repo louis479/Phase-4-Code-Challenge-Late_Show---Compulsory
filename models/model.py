@@ -1,6 +1,8 @@
 from sqlalchemy.orm import validates
-from models import db
-  
+from flask_sqlalchemy import SQLAlchemy
+
+from models import db 
+
 class Episode(db.Model):
     __tablename__ = 'episodes'
 
@@ -8,14 +10,13 @@ class Episode(db.Model):
     date = db.Column(db.String, nullable=False)
     number = db.Column(db.Integer, nullable=False)
 
-    appearances = db.relationship('Appearance', backref='episode', cascade='all, delete-orphan')
+    appearances = db.relationship('Appearance', back_populates='episode', cascade='all, delete-orphan')
 
     def to_dict(self):
         return {
             "id": self.id,
             "date": self.date,
-            "number": self.number,
-            "appearances": [appearance.to_dict() for appearance in self.appearances]
+            "number": self.number
         }
 
 class Guest(db.Model):
@@ -25,7 +26,7 @@ class Guest(db.Model):
     name = db.Column(db.String, nullable=False)
     occupation = db.Column(db.String, nullable=False)
 
-    appearances = db.relationship('Appearance', backref='guest', cascade='all, delete-orphan')
+    appearances = db.relationship('Appearance', back_populates='guest', cascade='all, delete-orphan')
 
     def to_dict(self):
         return {
@@ -39,6 +40,7 @@ class Appearance(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     rating = db.Column(db.Integer, nullable=False)
+    role = db.Column(db.String, nullable=False)
     episode_id = db.Column(db.Integer, db.ForeignKey('episodes.id'), nullable=False)
     guest_id = db.Column(db.Integer, db.ForeignKey('guests.id'), nullable=False)
 
@@ -47,15 +49,19 @@ class Appearance(db.Model):
         if rating < 1 or rating > 5:
             raise ValueError("rating must be between 1 and 5")
         return rating
+    
+    episode = db.relationship('Episode', back_populates='appearances')
+    guest = db.relationship('Guest', back_populates='appearances')
 
     def to_dict(self):
         return {
             "id": self.id,
             "rating": self.rating,
+            "role": self.role,
             "episode_id": self.episode_id,
             "guest_id": self.guest_id,
-            "episode": self.episode.to_dict(),
-            "guest": self.guest.to_dict()
+            "guest": self.guest.to_dict(),
+            "episode": self.episode.to_dict()
         }
 
     
